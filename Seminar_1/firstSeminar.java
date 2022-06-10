@@ -1,34 +1,47 @@
-import java.io.*;
+import java.io.FileReader;
+import java.io.BufferedReader;;
 /**
- * +Реализовать функцию возведения числа а в степень b. a, b ∈ Z. 
- * Сводя количество выполняемых действий к минимуму. 
-Пример 1: а = 3, b = 2, ответ: 9 
-Пример 2: а = 2, b = -2, ответ: 0.25
-Пример 3: а = 3, b = 0, ответ: 1
-Пример 4: а = 0, b = 0, ответ: не определено
-Пример 5
-входные данные находятся в файле input.txt в виде
-b 3
-a 10
-Результат нужно сохранить в файле output.txt
-1000
-
+Задача №1
  */
 public class firstSeminar {
-    public static void main(String[] args) throws Exception{
-        BufferedReader numbers = new BufferedReader(new FileReader("input.txt"));
+    static String[] ReadNumber(String file_name) throws Exception{
+        BufferedReader lines = new BufferedReader(new FileReader(file_name));
+        String numbers;
         String number_a = null;
         String number_b = null;
+		while ((numbers = lines.readLine()) != null) {
+            char temp = numbers.charAt(0);
+            switch (temp) {
+                case 'a':
+                    String temp_a = numbers;
+                    number_a = temp_a.replaceAll("\\D+", "");
+                    break;
+                case 'b':
+                    String temp_b = numbers;
+                    number_b = temp_b.replaceAll("\\D+", "");
+                    break;
+            }    
 
-        while ((number_a = numbers.readLine()) != null) {
-            
-            System.out.printf("%s\n", number_a);
-
-        }
-        numbers.close();
-
-
-
-        
+		}
+		lines.close();
+        return new String[] {number_a, number_b};
     }
-}
+    static int FindPow(int a, int b){
+        int result = a;
+        for (int i = 0; i < b - 1; i++) {
+            result = result * a;
+        } 
+        return result;
+    }
+    public static void main(String[] args) throws Exception{
+        String[] temp_array = ReadNumber("input.txt");
+        int a = Integer.parseInt(temp_array[0]);
+        int b = Integer.parseInt(temp_array[1]);
+        int answer = FindPow(a, b);
+        System.out.printf(" %d ^ %d = %d", a, b, answer);
+
+
+    }
+}    
+       
+    
