@@ -1,9 +1,20 @@
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.FileWriter;
 /**
 Задача №1
  */
 public class firstSeminar {
+
+    public static void main(String[] args) throws Exception{
+        String[] temp_array = ReadNumber("input.txt");
+        int a = Integer.parseInt(temp_array[0]);
+        int b = Integer.parseInt(temp_array[1]);
+        String answer = FindPow(a, b);
+        System.out.printf("a = %d, b = %d \n", a, b);
+        System.out.printf("ответ: %s ", answer);
+        WriteNumber(answer, "output.txt");
+    }
     static String[] ReadNumber(String file_name) throws Exception{
         BufferedReader lines = new BufferedReader(new FileReader(file_name));
         String numbers;
@@ -14,7 +25,12 @@ public class firstSeminar {
             switch (temp) {
                 case 'a':
                     String temp_a = numbers;
-                    number_a = temp_a.replaceAll("\\D+", "");
+                    int length_a = temp_a.length();
+                    for (int i = 0; i < length_a; i++) {
+                        if (Character.isDigit(temp_a.charAt(i)) || temp_a.charAt(i) == '-'){
+                            number_a = number_a + temp_a.charAt(i);
+                        }
+                    }
                     break;
                 case 'b':
                     String temp_b = numbers;
@@ -34,38 +50,38 @@ public class firstSeminar {
     static String FindPow(int a, int b){
         double result = a;
         String answer = null;
-        if(a == 0){
-           if (b == 0){
-               answer = "не определено";
-           } else {
-               answer = "0";
-           }
-        } else {
-            if (b > 0){
-                for (int i = 0; i < b - 1; i++) {
-                    result = result * a;
-                }
-            } else {
+        switch (a) {
+            case 0:
                 if (b == 0){
-                    result = 1;
+                    answer = "не определено";
                 } else {
-                    b = b * -1;
+                    answer = "0";
+                }
+                break;
+            default:
+                if (b > 0){
                     for (int i = 0; i < b - 1; i++) {
                         result = result * a;
                     }
-                    result = 1 / result;
-                }    
-            }
+                } else {
+                    if (b == 0){
+                        result = 1;
+                    } else {
+                        b = b * -1;
+                        for (int i = 0; i < b - 1; i++) {
+                            result = result * a;
+                        }
+                        result = 1 / result;
+                    }    
+                }
+                answer = Double.toString(result);
+                break;
         }
-        answer = Double.toString(result);
         return answer;
     }
-    public static void main(String[] args) throws Exception{
-        String[] temp_array = ReadNumber("input.txt");
-        int a = Integer.parseInt(temp_array[0]);
-        int b = Integer.parseInt(temp_array[1]);
-        String answer = FindPow(a, b);
-        System.out.printf("a = %d, b = %d \n", a, b);
-        System.out.printf("ответ: %s ", answer);
+    static void WriteNumber(String answer, String fileName)throws Exception{
+        FileWriter text = new FileWriter(fileName, false);
+        text.append(answer);
+        text.close();
     }
 }    
