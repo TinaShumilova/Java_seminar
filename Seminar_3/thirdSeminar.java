@@ -1,10 +1,11 @@
+
 /**
  * №4
  */
 public class thirdSeminar {
 
     public static void main(String[] args) {
-        int n = 4; 
+        int n = 5; 
         towerOfHanoi(n, 'A', 'C', 'B');
     }
 
@@ -12,6 +13,7 @@ public class thirdSeminar {
     static void towerOfHanoi(int n, char from_rod, char to_rod, char buf_rod)
 
     {
+
         if (n == 1)
         {
             System.out.printf("%d from %c => %c\n", n, from_rod, to_rod);
