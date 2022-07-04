@@ -13,7 +13,6 @@ public class Terminal {
             iScanner.next();
             number = GetNumber();
         }
-        //iScanner.close();
         return number;
     }
 
@@ -28,8 +27,23 @@ public class Terminal {
             iScanner.next();
             simbol = GetSimbol();
         }
-        //iScanner.close();
         
         return simbol;
     }
-}
+
+    public String GetComplex(){
+        Scanner iScanner = new Scanner(System.in);
+		System.out.printf("Add complex number: ");
+        String number = "";
+        if(iScanner.hasNext()){               
+		    number = iScanner.nextLine();
+        }else {
+            System.out.println("Wrong complex number");
+            iScanner.next();
+            number = GetComplex();
+        }
+        return number;
+    }
+
+}    
+    

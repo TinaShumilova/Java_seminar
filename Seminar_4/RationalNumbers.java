@@ -3,12 +3,13 @@
  * Test
  */
 public class RationalNumbers {
-
-    public static void main(String[] args) {
-	    Terminal test = new Terminal();
+	
+        public void RationalOperations(){ 
+        Terminal test = new Terminal();
         double number = test.GetNumber();
         char simbol = test.GetSimbol();
         double result = number;
+
         while (simbol != '=') {
             switch (simbol) {
                 case '+':
@@ -38,5 +39,7 @@ public class RationalNumbers {
                 simbol = test.GetSimbol();		   
         }
         System.out.printf("Final result: %f", result);
-	}
+        }
 }
+
+
